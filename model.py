@@ -386,14 +386,12 @@ def load_job_skills(file_path: str) -> List[str]:
         print(f"Error reading '{file_path}'. Using default skills list.")
         return default_skills
 
-
-# Load spaCy NLP model
 try:
-    nlp = spacy.load("en_core_web_sm")
+        spacy.load("en_core_web_sm")
 except OSError:
-    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
-    nlp = spacy.load("en_core_web_sm")
-
+        from spacy.cli import download
+        download("en_core_web_sm")
+        spacy.load("en_core_web_sm")
 
 def extract_skills(text: str) -> List[str]:
     """Extract skills from text using NLP techniques."""
